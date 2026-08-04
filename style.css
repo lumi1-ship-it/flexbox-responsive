@@ -1,0 +1,385 @@
+/* =========================================================
+   BRÛLERIE DES HAUTS — style.css
+   Site vitrine responsive construit avec Flexbox
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap');
+
+:root {
+  /* Palette */
+  --bg-espresso: #1E140D;   /* fond sombre, sections "café" */
+  --bg-cream: #F5EDE1;      /* fond clair principal */
+  --cream-soft: #EFE0C8;    /* fond clair secondaire (cartes) */
+  --accent-amber: #C9793F;  /* accent torréfaction */
+  --brown-mid: #7A5C43;     /* texte secondaire / bordures */
+  --text-dark: #2B1B12;     /* texte sur fond clair */
+  --text-light: #F5EDE1;    /* texte sur fond sombre */
+
+  --font-display: 'Fraunces', serif;
+  --font-body: 'Work Sans', sans-serif;
+  --font-mono: 'Space Mono', monospace;
+
+  --radius: 6px;
+  --gap-s: 0.75rem;
+  --gap-m: 1.5rem;
+  --gap-l: 3rem;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--text-dark);
+  background: var(--bg-cream);
+  line-height: 1.55;
+}
+
+img { max-width: 100%; display: block; }
+
+a { color: inherit; text-decoration: none; }
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  margin: 0 0 0.5em 0;
+  font-weight: 600;
+}
+
+h1 { font-size: clamp(2.2rem, 5vw, 3.4rem); line-height: 1.05; }
+h2 { font-size: clamp(1.6rem, 3.5vw, 2.2rem); }
+h3 { font-size: 1.25rem; }
+
+p { margin: 0 0 1em 0; }
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-amber);
+}
+
+.container {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+button, .btn {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  border: none;
+  border-radius: var(--radius);
+  padding: 0.85rem 1.6rem;
+}
+
+.btn-primary {
+  background: var(--accent-amber);
+  color: var(--bg-espresso);
+}
+.btn-primary:hover { background: #b4692f; }
+
+.btn-outline {
+  background: transparent;
+  border: 1.5px solid var(--text-light);
+  color: var(--text-light);
+}
+.btn-outline:hover { background: rgba(245,237,225,0.1); }
+
+/* =========================================================
+   1) EN-TÊTE / NAVIGATION
+   Flex row : logo à gauche, liens à droite (justify-content).
+   En dessous de 640px : passage en colonne (flex-direction).
+   ========================================================= */
+.site-header {
+  background: var(--bg-espresso);
+  color: var(--text-light);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.1rem 1.5rem;
+  max-width: 1120px;
+  margin: 0 auto;
+  gap: var(--gap-m);
+}
+
+.logo {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 700;
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+}
+.logo span { color: var(--accent-amber); }
+
+.nav-links {
+  display: flex;
+  gap: var(--gap-m);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links a {
+  font-size: 0.95rem;
+  padding: 0.3rem 0;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.2s;
+}
+.nav-links a:hover,
+.nav-links a[aria-current="page"] {
+  border-bottom-color: var(--accent-amber);
+}
+
+.nav-toggle {
+  display: none;
+  background: transparent;
+  border: 1px solid var(--text-light);
+  color: var(--text-light);
+  padding: 0.4rem 0.7rem;
+}
+
+@media (max-width: 640px) {
+  .nav-links {
+    display: none;
+    flex-direction: column;      /* empilement vertical en mobile */
+    width: 100%;
+    gap: 0;
+    padding: 0 1.5rem 1rem;
+  }
+  .nav-links.open { display: flex; }
+  .nav-links a { display: block; padding: 0.6rem 0; }
+  .nav-bar { flex-wrap: wrap; }
+  .nav-toggle { display: block; }
+}
+
+/* =========================================================
+   2) HÉRO
+   Flex row : texte / visuel côte à côte, puis empilés en colonne.
+   ========================================================= */
+.hero {
+  background: var(--bg-espresso);
+  color: var(--text-light);
+}
+
+.hero-inner {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-l);
+  padding: 4rem 1.5rem 5rem;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.hero-text { flex: 1 1 420px; }
+.hero-visual { flex: 1 1 360px; }
+
+.hero-actions {
+  display: flex;
+  gap: var(--gap-s);
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+}
+
+@media (max-width: 800px) {
+  .hero-inner { flex-direction: column; }
+  .hero-visual { order: -1; }
+}
+
+/* ---- Courbe de torréfaction (élément signature, en SVG) ---- */
+.roast-curve-card {
+  background: rgba(245,237,225,0.06);
+  border: 1px solid rgba(245,237,225,0.15);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+}
+.roast-curve-card svg { width: 100%; height: auto; }
+.roast-curve-legend {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--cream-soft);
+  margin-top: 0.5rem;
+}
+
+/* =========================================================
+   3) CARTES EN LIGNE SOUPLE (flex-wrap)
+   Nombre de colonnes libre : chaque carte a une largeur de base
+   et grandit/rétrécit selon l'espace (flex-grow / flex-shrink).
+   ========================================================= */
+.card-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-m);
+}
+
+.card {
+  flex: 1 1 260px;
+  background: var(--cream-soft);
+  border-radius: var(--radius);
+  padding: 1.6rem;
+}
+
+.card-dark {
+  background: var(--bg-espresso);
+  color: var(--text-light);
+}
+
+section { padding: 4.5rem 0; }
+.section-head { max-width: 640px; margin-bottom: var(--gap-l); }
+
+/* =========================================================
+   4) JAUGE DE TORRÉFACTION (élément signature)
+   Barre flex divisée en 3 segments égaux (flex:1 chacun) ;
+   le segment atteint est mis en avant.
+   ========================================================= */
+.roast-gauge {
+  display: flex;
+  gap: 4px;
+  margin: 0.75rem 0 0.4rem;
+}
+.roast-gauge .seg {
+  flex: 1;
+  height: 8px;
+  border-radius: 3px;
+  background: rgba(43,27,18,0.15);
+}
+.roast-gauge .seg.filled { background: var(--accent-amber); }
+
+.roast-gauge-labels {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--brown-mid);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* =========================================================
+   5) FICHES CAFÉ (page "Nos cafés")
+   Flex column à l'intérieur de chaque carte pour empiler
+   nom / origine / jauge / notes / prix, avec justify-content
+   qui pousse le prix en bas.
+   ========================================================= */
+.coffee-card {
+  flex: 1 1 300px;
+  display: flex;
+  flex-direction: column;
+  background: var(--cream-soft);
+  border-radius: var(--radius);
+  padding: 1.6rem;
+}
+
+.coffee-origin {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--brown-mid);
+}
+
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.9rem 0;
+}
+.tag {
+  font-size: 0.72rem;
+  background: rgba(43,27,18,0.08);
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+}
+
+.coffee-footer {
+  margin-top: auto;              /* pousse la ligne prix tout en bas */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(43,27,18,0.1);
+}
+.coffee-price {
+  font-family: var(--font-mono);
+  font-weight: 700;
+}
+
+/* =========================================================
+   6) CHRONOLOGIE DU PROCÉDÉ (page "Torréfaction")
+   Flex row de 5 étapes reliées, qui devient une colonne
+   sur petit écran.
+   ========================================================= */
+.timeline {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gap-s);
+}
+
+.timeline-step {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  text-align: left;
+}
+
+.timeline-num {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--accent-amber);
+}
+
+.timeline-divider {
+  flex: 0 0 auto;
+  width: 2.5rem;
+  height: 1px;
+  background: var(--brown-mid);
+  margin-top: 1.4rem;
+}
+
+@media (max-width: 900px) {
+  .timeline { flex-direction: column; }
+  .timeline-divider { width: 1px; height: 1.5rem; margin-left: 0.1rem; }
+}
+
+/* =========================================================
+   7) PIED DE PAGE
+   Flex row : colonnes de liens + mentions, empilé en mobile.
+   ========================================================= */
+.site-footer {
+  background: var(--bg-espresso);
+  color: var(--cream-soft);
+}
+
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--gap-l);
+  padding: 3rem 1.5rem;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.footer-col { flex: 1 1 200px; }
+.footer-col h3 { font-size: 1rem; color: var(--text-light); }
+.footer-col ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.9rem; }
+
+.footer-bottom {
+  border-top: 1px solid rgba(245,237,225,0.12);
+  text-align: center;
+  font-size: 0.78rem;
+  padding: 1.2rem;
+  color: var(--brown-mid);
+}
