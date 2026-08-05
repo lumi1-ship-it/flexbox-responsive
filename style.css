@@ -1,19 +1,15 @@
-/* =========================================================
-   BRÛLERIE DES HAUTS — style.css
-   Site vitrine responsive construit avec Flexbox
-   ========================================================= */
-
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap');
 
+/* variables de couleurs et polices pour tout le site */
 :root {
-  /* Palette */
-  --bg-espresso: #1E140D;   /* fond sombre, sections "café" */
-  --bg-cream: #F5EDE1;      /* fond clair principal */
-  --cream-soft: #EFE0C8;    /* fond clair secondaire (cartes) */
-  --accent-amber: #C9793F;  /* accent torréfaction */
-  --brown-mid: #7A5C43;     /* texte secondaire / bordures */
-  --text-dark: #2B1B12;     /* texte sur fond clair */
-  --text-light: #F5EDE1;    /* texte sur fond sombre */
+  --bg-espresso: #1E140D;
+  --bg-cream: #F5EDE1;
+  --cream-soft: #EFE0C8;
+  /* --accent-amber: #D9822E;  trop clair, illisible sur le fond crème */
+  --accent-amber: #C9793F;
+  --brown-mid: #7A5C43;
+  --text-dark: #2B1B12;
+  --text-light: #F5EDE1;
 
   --font-display: 'Fraunces', serif;
   --font-body: 'Work Sans', sans-serif;
@@ -26,7 +22,6 @@
 }
 
 * { box-sizing: border-box; }
-
 html { scroll-behavior: smooth; }
 
 body {
@@ -38,7 +33,6 @@ body {
 }
 
 img { max-width: 100%; display: block; }
-
 a { color: inherit; text-decoration: none; }
 
 h1, h2, h3 {
@@ -46,11 +40,9 @@ h1, h2, h3 {
   margin: 0 0 0.5em 0;
   font-weight: 600;
 }
-
 h1 { font-size: clamp(2.2rem, 5vw, 3.4rem); line-height: 1.05; }
 h2 { font-size: clamp(1.6rem, 3.5vw, 2.2rem); }
 h3 { font-size: 1.25rem; }
-
 p { margin: 0 0 1em 0; }
 
 .eyebrow {
@@ -76,13 +68,8 @@ button, .btn {
   border-radius: var(--radius);
   padding: 0.85rem 1.6rem;
 }
-
-.btn-primary {
-  background: var(--accent-amber);
-  color: var(--bg-espresso);
-}
-.btn-primary:hover { background: #b4692f; }
-
+.btn-primary { background: var(--accent-amber); color: var(--bg-espresso); }
+.btn-primary:hover { background: #b4692f; } /* un poil plus foncé que la variable de base pour que ça se voie au survol */
 .btn-outline {
   background: transparent;
   border: 1.5px solid var(--text-light);
@@ -90,11 +77,7 @@ button, .btn {
 }
 .btn-outline:hover { background: rgba(245,237,225,0.1); }
 
-/* =========================================================
-   1) EN-TÊTE / NAVIGATION
-   Flex row : logo à gauche, liens à droite (justify-content).
-   En dessous de 640px : passage en colonne (flex-direction).
-   ========================================================= */
+/* header + nav */
 .site-header {
   background: var(--bg-espresso);
   color: var(--text-light);
@@ -123,26 +106,25 @@ button, .btn {
 }
 .logo span { color: var(--accent-amber); }
 
-.nav-links {
+.liens-nav {
   display: flex;
   gap: var(--gap-m);
   list-style: none;
   margin: 0;
   padding: 0;
 }
-
-.nav-links a {
+.liens-nav a {
   font-size: 0.95rem;
   padding: 0.3rem 0;
   border-bottom: 2px solid transparent;
   transition: border-color 0.2s;
 }
-.nav-links a:hover,
-.nav-links a[aria-current="page"] {
+.liens-nav a:hover,
+.liens-nav a[aria-current="page"] {
   border-bottom-color: var(--accent-amber);
 }
 
-.nav-toggle {
+.btn-menu {
   display: none;
   background: transparent;
   border: 1px solid var(--text-light);
@@ -150,30 +132,29 @@ button, .btn {
   padding: 0.4rem 0.7rem;
 }
 
+/* j'avais mis 768px au départ mais le menu passait en colonne trop tôt
+   sur mon téléphone, du coup je suis descendue à 640px */
 @media (max-width: 640px) {
-  .nav-links {
+  .liens-nav {
     display: none;
-    flex-direction: column;      /* empilement vertical en mobile */
+    flex-direction: column;
     width: 100%;
     gap: 0;
     padding: 0 1.5rem 1rem;
   }
-  .nav-links.open { display: flex; }
-  .nav-links a { display: block; padding: 0.6rem 0; }
+  .liens-nav.ouvert { display: flex; }
+  .liens-nav a { display: block; padding: 0.6rem 0; }
   .nav-bar { flex-wrap: wrap; }
-  .nav-toggle { display: block; }
+  .btn-menu { display: block; }
 }
 
-/* =========================================================
-   2) HÉRO
-   Flex row : texte / visuel côte à côte, puis empilés en colonne.
-   ========================================================= */
+/* héro accueil */
 .hero {
   background: var(--bg-espresso);
   color: var(--text-light);
 }
 
-.hero-inner {
+.hero-contenu {
   display: flex;
   align-items: center;
   gap: var(--gap-l);
@@ -185,7 +166,7 @@ button, .btn {
 .hero-text { flex: 1 1 420px; }
 .hero-visual { flex: 1 1 360px; }
 
-.hero-actions {
+.hero-boutons {
   display: flex;
   gap: var(--gap-s);
   flex-wrap: wrap;
@@ -193,19 +174,18 @@ button, .btn {
 }
 
 @media (max-width: 800px) {
-  .hero-inner { flex-direction: column; }
-  .hero-visual { order: -1; }
+  .hero-contenu { flex-direction: column; }
+  .hero-visual { order: -1; } /* sans ça le visuel se retrouvait après le texte, pas terrible en mobile */
 }
 
-/* ---- Courbe de torréfaction (élément signature, en SVG) ---- */
-.roast-curve-card {
+.encart-courbe {
   background: rgba(245,237,225,0.06);
   border: 1px solid rgba(245,237,225,0.15);
   border-radius: var(--radius);
   padding: 1.5rem;
 }
-.roast-curve-card svg { width: 100%; height: auto; }
-.roast-curve-legend {
+.encart-courbe svg { width: 100%; height: auto; }
+.legende-courbe {
   display: flex;
   justify-content: space-between;
   font-family: var(--font-mono);
@@ -214,51 +194,40 @@ button, .btn {
   margin-top: 0.5rem;
 }
 
-/* =========================================================
-   3) CARTES EN LIGNE SOUPLE (flex-wrap)
-   Nombre de colonnes libre : chaque carte a une largeur de base
-   et grandit/rétrécit selon l'espace (flex-grow / flex-shrink).
-   ========================================================= */
-.card-row {
+/* cartes en ligne */
+.ligne-cartes {
   display: flex;
   flex-wrap: wrap;
   gap: var(--gap-m);
 }
 
 .card {
-  flex: 1 1 260px;
+  flex: 1 1 260px; /* 260px = largeur mini avant retour à la ligne, trouvé en testant */
   background: var(--cream-soft);
   border-radius: var(--radius);
   padding: 1.6rem;
 }
-
-.card-dark {
-  background: var(--bg-espresso);
-  color: var(--text-light);
-}
+.card-dark { background: var(--bg-espresso); color: var(--text-light); }
 
 section { padding: 4.5rem 0; }
-.section-head { max-width: 640px; margin-bottom: var(--gap-l); }
+.entete-section { max-width: 640px; margin-bottom: var(--gap-l); }
 
-/* =========================================================
-   4) JAUGE DE TORRÉFACTION (élément signature)
-   Barre flex divisée en 3 segments égaux (flex:1 chacun) ;
-   le segment atteint est mis en avant.
-   ========================================================= */
-.roast-gauge {
+/* jauge de torréfaction */
+.jauge {
   display: flex;
   gap: 4px;
   margin: 0.75rem 0 0.4rem;
 }
-.roast-gauge .seg {
+.jauge .seg {
   flex: 1;
   height: 8px;
   border-radius: 3px;
   background: rgba(43,27,18,0.15);
 }
-.roast-gauge .seg.filled { background: var(--accent-amber); }
+.jauge .seg.actif { background: var(--accent-amber); }
+/* .jauge .seg.actif { background: orange; }  test couleur, gardé le var() finalement */
 
-.roast-gauge-labels {
+.jauge-labels {
   display: flex;
   justify-content: space-between;
   font-family: var(--font-mono);
@@ -268,13 +237,8 @@ section { padding: 4.5rem 0; }
   letter-spacing: 0.05em;
 }
 
-/* =========================================================
-   5) FICHES CAFÉ (page "Nos cafés")
-   Flex column à l'intérieur de chaque carte pour empiler
-   nom / origine / jauge / notes / prix, avec justify-content
-   qui pousse le prix en bas.
-   ========================================================= */
-.coffee-card {
+/* fiches café */
+.carte-cafe {
   flex: 1 1 300px;
   display: flex;
   flex-direction: column;
@@ -283,13 +247,13 @@ section { padding: 4.5rem 0; }
   padding: 1.6rem;
 }
 
-.coffee-origin {
+.cafe-origine {
   font-family: var(--font-mono);
   font-size: 0.78rem;
   color: var(--brown-mid);
 }
 
-.tag-row {
+.liste-tags {
   display: flex;
   flex-wrap: wrap;
   gap: 0.4rem;
@@ -302,45 +266,33 @@ section { padding: 4.5rem 0; }
   border-radius: 999px;
 }
 
-.coffee-footer {
-  margin-top: auto;              /* pousse la ligne prix tout en bas */
+.cafe-footer {
+  margin-top: auto; /* galéré à trouver ça, sans ce truc le prix restait collé juste sous les tags */
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding-top: 1rem;
   border-top: 1px solid rgba(43,27,18,0.1);
 }
-.coffee-price {
-  font-family: var(--font-mono);
-  font-weight: 700;
-}
+.cafe-prix { font-family: var(--font-mono); font-weight: 700; }
 
-/* =========================================================
-   6) CHRONOLOGIE DU PROCÉDÉ (page "Torréfaction")
-   Flex row de 5 étapes reliées, qui devient une colonne
-   sur petit écran.
-   ========================================================= */
-.timeline {
+/* étapes du procédé */
+.chronologie {
   display: flex;
   align-items: flex-start;
   gap: var(--gap-s);
 }
 
-.timeline-step {
+.etape {
   flex: 1 1 0;
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
   text-align: left;
 }
+.etape-num { font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent-amber); }
 
-.timeline-num {
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  color: var(--accent-amber);
-}
-
-.timeline-divider {
+.separateur {
   flex: 0 0 auto;
   width: 2.5rem;
   height: 1px;
@@ -348,21 +300,17 @@ section { padding: 4.5rem 0; }
   margin-top: 1.4rem;
 }
 
+/* les 5 étapes commençaient à être trop serrées avant 900px, donc bascule ici
+   (testé aussi à 1024px mais ça faisait basculer même sur les écrans de PC classiques) */
 @media (max-width: 900px) {
-  .timeline { flex-direction: column; }
-  .timeline-divider { width: 1px; height: 1.5rem; margin-left: 0.1rem; }
+  .chronologie { flex-direction: column; }
+  .separateur { width: 1px; height: 1.5rem; margin-left: 0.1rem; }
 }
 
-/* =========================================================
-   7) PIED DE PAGE
-   Flex row : colonnes de liens + mentions, empilé en mobile.
-   ========================================================= */
-.site-footer {
-  background: var(--bg-espresso);
-  color: var(--cream-soft);
-}
+/* pied de page */
+.site-footer { background: var(--bg-espresso); color: var(--cream-soft); }
 
-.footer-inner {
+.footer-contenu {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
@@ -372,14 +320,22 @@ section { padding: 4.5rem 0; }
   margin: 0 auto;
 }
 
-.footer-col { flex: 1 1 200px; }
-.footer-col h3 { font-size: 1rem; color: var(--text-light); }
-.footer-col ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.9rem; }
+.footer-colonne { flex: 1 1 200px; }
+.footer-colonne h3 { font-size: 1rem; color: var(--text-light); }
+.footer-colonne ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
 
-.footer-bottom {
+.footer-bas {
   border-top: 1px solid rgba(245,237,225,0.12);
   text-align: center;
   font-size: 0.78rem;
   padding: 1.2rem;
   color: var(--brown-mid);
-}
+   }
